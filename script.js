@@ -20,9 +20,15 @@
 // variables on buttons for event listeners
 // span on timer to update as it ticks down
 // main content to be overridden by questions
+// high scores
 
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
+var startBtn = document.querySelector("#start");
+var resetBtn = document.querySelector("#reset");
+var timerEl = document.querySelector("#timerCount");
+var mainEl = document.querySelector(".question-area");
+var answersEl = document.querySelector(".answers");
+
 
 
 

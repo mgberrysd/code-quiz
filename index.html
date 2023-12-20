@@ -10,25 +10,26 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Password Generator</h1>
+        <h1>Code Quiz</h1>
       </header>
-      <div class="card">
+      <main class="card">
         <div class="card-header">
-          <h2>Generate a Password</h2>
+          <h2>Welcome!</h2>
         </div>
         <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
+          <p class="question-area">Welcome to the code quiz!<br>Click the start button to play!</p>
+          <ol class="answers">
+
+          </ol>
         </div>
         <div class="card-footer">
           <button id="start" class="btn">Start quiz</button>
           <button id="reset" class="btn">Reset Scores</button>
         </div>
-      </div>
+      </main>
+      <aside>
+        <p>Timer: <span id="timerCount">0</span></p>
+      </aside>
     </div>
     <script src="script.js"></script>
   </body>

@@ -29,17 +29,76 @@ var timerEl = document.querySelector("#timerCount");
 var mainEl = document.querySelector(".question-area");
 var answersEl = document.querySelector(".answers");
 
+var timer;
 
+function init() {
+  getHighScores();
+  setHighScores();
+}
 
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
+function getHighScores() {
 
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+function setHighScores() {
+
+}
+
+function startGame() {
+
+}
+
+function startTimer() {
+
+}
+
+function endGame() {
+
+}
+
+function questionOne() {
+
+}
+
+function questionTwo() {
+  
+}
+
+function questionThree() {
+  
+}
+
+function questionFour() {
+  
+}
+
+function startTimer() {
+  // Sets timer
+  timer = setInterval(function() {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount >= 0) {
+      // Tests if win condition is met
+      if (isWin && timerCount > 0) {
+        // Clears interval and stops timer
+        clearInterval(timer);
+        endGame();
+      }
+    }
+    // Tests if time has run out
+    if (timerCount === 0) {
+      // Clears interval
+      clearInterval(timer);
+      endGame();
+    }
+  }, 1000);
+}
+
+function resetHighScores() {
+
+}
+
+startBtn.addEventListener("click", startGame);
+resetBtn.addEventListener("click", resetHighScores);
+
+init();

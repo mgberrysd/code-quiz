@@ -30,6 +30,7 @@ var mainEl = document.querySelector(".question-area");
 var answersEl = document.querySelector(".answers");
 
 var timer;
+var timerCount;
 
 function init() {
   getHighScores();
@@ -45,11 +46,10 @@ function setHighScores() {
 }
 
 function startGame() {
-
-}
-
-function startTimer() {
-
+  timerCount = 60;
+  startTimer();
+  startBtn.disabled = true;
+  questionOne();
 }
 
 function endGame() {
@@ -57,26 +57,50 @@ function endGame() {
 }
 
 function questionOne() {
+  mainEl.textContent = "Question 1: ";
+  var a1 = document.createElement("li");
+  var a2 = document.createElement("li");
+  var a3 = document.createElement("li");
+  var a4 = document.createElement("li");
 
+  a1.textContent = "a";
+  a2.textContent = "b";
+  a3.textContent = "c";
+  a4.textContent = "d";
+
+  answersEl.appendChild(a1);
+  answersEl.appendChild(a2);
+  answersEl.appendChild(a3);
+  answersEl.appendChild(a4);
+
+  answersEl.addEventListener("click", function(event) {
+    if  (event.target === a1) {
+      mainEl.textContent = "Correct";
+    }
+    else {
+      mainEl.textContent = "incott";
+      timerCount -=5;
+    }
+  })
 }
 
 function questionTwo() {
-  
+  mainEl.textContent = "Question 2: ";
 }
 
 function questionThree() {
-  
+  mainEl.textContent = "Question 3: ";
 }
 
 function questionFour() {
-  
+  mainEl.textContent = "Question 4: ";
 }
 
 function startTimer() {
   // Sets timer
   timer = setInterval(function() {
     timerCount--;
-    timerElement.textContent = timerCount;
+    timerEl.textContent = timerCount;
     if (timerCount >= 0) {
       // Tests if win condition is met
       if (isWin && timerCount > 0) {

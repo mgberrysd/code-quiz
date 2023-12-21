@@ -50,8 +50,9 @@ function init() {
 
 function getHighScores() {
   var storedScores = localStorage.getItem("user");
-  scoreboard = JSON.parse(storedScores);
-  console.log(scoreboard)
+  if (storedScores !== null) {
+    scoreboard = JSON.parse(storedScores);
+  }
 }
 
 function setHighScores() {

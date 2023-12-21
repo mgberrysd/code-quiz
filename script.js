@@ -52,6 +52,10 @@ var winCondition;
 // empty array for the highscores
 var scoreboard = [];
 
+// late addition to hold the event listeners, will get cleared in endGame
+// defining the event listeners locally created an edge case where the listeners wouldn't clear if the timer ticked to 0
+var eventListener;
+
 // function that is called when page is loaded to populate high scores if they exist
 function init() {
   getHighScores();
@@ -111,6 +115,10 @@ function startGame() {
 
 function endGame() {
 
+  // removed the latest event listener, added specifically if the timer reaches 0 with no input
+  answersEl.removeEventListener("click", eventListener);
+
+
   // sets win condition to true to exit the timer
   mainEl.textContent = "You completeed the quiz with a score of " + timerCount + ". " + "Press the start button to play again!";
 
@@ -136,7 +144,7 @@ function endGame() {
 
 // first question called from the start button
 function questionOne() {
-  mainEl.textContent = "Question 1: ";
+  mainEl.textContent = "Question 1: The setInterval function uses which unit of time as an input?";
 
   // created elements and appended them to an ol so that they can later be deleted
   a1 = document.createElement("li");
@@ -144,10 +152,10 @@ function questionOne() {
   a3 = document.createElement("li");
   a4 = document.createElement("li");
 
-  a1.textContent = "a";
-  a2.textContent = "b";
-  a3.textContent = "c";
-  a4.textContent = "d";
+  a1.textContent = "seconds";
+  a2.textContent = "minutes";
+  a3.textContent = "milliseconds";
+  a4.textContent = "on click";
 
   answersEl.appendChild(a1);
   answersEl.appendChild(a2);
@@ -157,8 +165,8 @@ function questionOne() {
   // function and logic for when the list elements are clicked
   // removes event listener so event listeners don't overlap
   // calls question two regardless of outcome
-  function ans1Response(event) {
-    if (event.target === a1) {
+  eventListener = function ans1Response(event) {
+    if (event.target === a3) {
       answerResponse.textContent = "Correct!";
       answersEl.removeEventListener("click", ans1Response);
       questionTwo();
@@ -173,20 +181,20 @@ function questionOne() {
   }
 
   // added an event listener to the list elements 
-  answersEl.addEventListener("click", ans1Response);
+  answersEl.addEventListener("click", eventListener);
 }
 
 // second question called from the first function
 function questionTwo() {
-  mainEl.textContent = "Question 2: ";
+  mainEl.textContent = "Question 2: To view the contents of a variable, var, without writting to the page, which command must be called?";
 
   // only text content is changed, list items are not created and appended again
-  a1.textContent = "e";
-  a2.textContent = "f";
-  a3.textContent = "g";
-  a4.textContent = "h";
+  a1.textContent = "console.log(var)";
+  a2.textContent = "var.textContent";
+  a3.textContent = "getLocalStorage('var')";
+  a4.textContent = "var = ''";
 
-  function ans2Response(event) {
+  eventListener = function ans2Response(event) {
     if (event.target === a1) {
       answerResponse.textContent = "Correct!";
       answersEl.removeEventListener("click", ans2Response);
@@ -201,20 +209,20 @@ function questionTwo() {
     }
   }
 
-  answersEl.addEventListener("click", ans2Response);
+  answersEl.addEventListener("click", eventListener);
 }
 
 // third question called from the second function
 function questionThree() {
-  mainEl.textContent = "Question 3: ";
+  mainEl.textContent = "Question 3: What do for loops in Javascript use to seperate the input arguments?";
 
-  a1.textContent = "i";
-  a2.textContent = "j";
-  a3.textContent = "k";
-  a4.textContent = "l";
+  a1.textContent = ", (comma)";
+  a2.textContent = "; (semicolon)";
+  a3.textContent = "  (space)";
+  a4.textContent = ": (colon)";
 
-  function ans3Response(event) {
-    if (event.target === a1) {
+  eventListener = function ans3Response(event) {
+    if (event.target === a2) {
       answerResponse.textContent = "Correct!";
       answersEl.removeEventListener("click", ans3Response);
       questionFour();
@@ -227,21 +235,21 @@ function questionThree() {
     }
   }
 
-  answersEl.addEventListener("click", ans3Response);
+  answersEl.addEventListener("click", eventListener);
 }
 
 // fourth question called from the third funciton
 function questionFour() {
-  mainEl.textContent = "Question 4: ";
+  mainEl.textContent = "Question 4: JavaScript objects can contain which of the following data types?";
 
-  a1.textContent = "e";
-  a2.textContent = "f";
-  a3.textContent = "g";
-  a4.textContent = "h";
+  a1.textContent = "Strings";
+  a2.textContent = "Numbers";
+  a3.textContent = "boolean";
+  a4.textContent = "All of the above";
 
   // function 4 is different in that it will call the endgame function once an answer is selected
-  function ans4Response(event) {
-    if (event.target === a1) {
+  eventListener = function ans4Response(event) {
+    if (event.target === a4) {
       answerResponse.textContent = "Correct!";
       answersEl.removeEventListener("click", ans4Response);
       winCondition = true;
@@ -254,7 +262,7 @@ function questionFour() {
     }
   }
 
-  answersEl.addEventListener("click", ans4Response);
+  answersEl.addEventListener("click", eventListener);
 }
 
 // timer function called when start button is pressed, updates every second
@@ -272,17 +280,19 @@ function startTimer() {
       }
     }
 
+    // some extra logic to catch the timer and initiate the endGame if no buttons are pressed
+    if (timerCount === 0 && winCondition === false) {
+      clearInterval(timer);
+      endGame();
+    }
+
     // <= 0 needed as it is possible to achieve a negative score with a wrong answer
     if (timerCount < 0) {
       clearInterval(timer);
       endGame();
     }
 
-    // some extra logic to catch the timer and initiate the endGame if no buttons are pressed
-    if (timerCount === 0 && winCondition === false) {
-      clearInterval(timer);
-      endGame();
-    }
+    
   }, 1000);
 }
 

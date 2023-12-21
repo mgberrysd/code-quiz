@@ -9,35 +9,38 @@
   </head>
   <body>
     <div class="wrapper">
+      <div class="timer float-right">
+        <p>Timer: <span id="timerCount">0</span></p>
+
+      </div>
       <header>
+
         <h1>Code Quiz</h1>
       </header>
       <main class="card">
         <div class="card-header">
-          <h2>Welcome!</h2>
         </div>
         <p class="answer-response"></p>
 
         <div class="card-body">
-          <p class="question-area">Welcome to the code quiz!<br>Click the start button to play!</p>
+          <p class="question-area">Welcome to the code quiz!<br><br>The quiz consists of 4 multiple choice questions related to JavaScript.<br><br>Aim for a high score! 5 seconds will be deducted from the timer for wrong answers.<br><br>Click the start button to play!</p>
           <ol class="answers">
 
           </ol>
         </div>
         <div class="card-footer">
-          <button id="start" class="btn">Start quiz</button>
+          <button id="start" class="btn">Start Quiz</button>
           <button id="reset" class="btn">Reset Scores</button>
         </div>
-      </main>
-      <aside>
-        <p>Timer: <span id="timerCount">0</span></p>
-      </aside>
-      <footer>
+        <div class="card-body">
           <h2>High Scores</h2>
-          <ul class="scoreboard">
+          <ol class="scoreboard">
+  
+          </ol>
+        </div>
+  
+      </main>
 
-          </ul>
-      </footer>
     </div>
     <script src="script.js"></script>
   </body>

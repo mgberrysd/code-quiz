@@ -49,20 +49,22 @@ function init() {
 }
 
 function getHighScores() {
-  localStorage.getItem("user", JSON.parse(scoreboard));
+  var storedScores = localStorage.getItem("user");
+  scoreboard = JSON.parse(storedScores);
+  console.log(scoreboard)
 }
 
 function setHighScores() {
-  scoreboard.sort((a, b) => a.value - b.value);
-  for (i = 0; i < scoreboard.childElementCount; i) {
-    scoreboard.removeChild(scoreboard.firstElementChild);
+  scoreboard.sort((a, b) => b.score - a.score);
+  for (i = 0; i < scoreboardEl.childElementCount; i) {
+    scoreboardEl.removeChild(scoreboardEl.firstElementChild);
   }
-  // for (i = 0; i < scoreboard.length; i++) {
-  //   var scoreOut
-  //   scoreOut[i].document.createElement("li");
-  //   scoreOut[i].textContent = scoreboard[i];
-  //   scoreboardEl.appendChild(scoreOut[i]);
-  // }
+  for (i = 0; i < scoreboard.length; i++) {
+    var scoreOut = document.createElement("li");;
+    
+    scoreOut.textContent = scoreboard[i].user + " " + scoreboard[i].score;
+    scoreboardEl.appendChild(scoreOut);
+  }
   localStorage.setItem("user", JSON.stringify(scoreboard));
 }
 
@@ -221,7 +223,7 @@ function startTimer() {
 
 function resetHighScores() {
   scoreboard = [];
-  localStorage.setItem("user", JSON.stringify(scoreboard));
+  setHighScores();
 }
 
 startBtn.addEventListener("click", startGame);

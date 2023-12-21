@@ -41,7 +41,7 @@ var timerCount;
 
 var winCondition;
 
-var scoreboard;
+var scoreboard = [];
 
 function init() {
   getHighScores();
@@ -49,12 +49,21 @@ function init() {
 }
 
 function getHighScores() {
-  localStorage.getItem();
+  localStorage.getItem("user", JSON.parse(scoreboard));
 }
 
 function setHighScores() {
-  
-  localStorage.setItem("user", scoreboard);
+  scoreboard.sort((a, b) => a.value - b.value);
+  for (i = 0; i < scoreboard.childElementCount; i) {
+    scoreboard.removeChild(scoreboard.firstElementChild);
+  }
+  // for (i = 0; i < scoreboard.length; i++) {
+  //   var scoreOut
+  //   scoreOut[i].document.createElement("li");
+  //   scoreOut[i].textContent = scoreboard[i];
+  //   scoreboardEl.appendChild(scoreOut[i]);
+  // }
+  localStorage.setItem("user", JSON.stringify(scoreboard));
 }
 
 function startGame() {
@@ -202,18 +211,17 @@ function startTimer() {
     if (timerCount >= 0) {
       if (winCondition === true && timerCount > 0) {
         clearInterval(timer);
-        endGame();
       }
     }
     if (timerCount <= 0) {
       clearInterval(timer);
-      endGame();
     }
   }, 1000);
 }
 
 function resetHighScores() {
-
+  scoreboard = [];
+  localStorage.setItem("user", JSON.stringify(scoreboard));
 }
 
 startBtn.addEventListener("click", startGame);

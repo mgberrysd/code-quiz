@@ -29,6 +29,17 @@ var timerEl = document.querySelector("#timerCount");
 var mainEl = document.querySelector(".question-area");
 var answersEl = document.querySelector(".answers");
 
+var a1;
+var a2;
+var a3;
+var a4;
+
+var q1ans = false;
+var q2ans = false;
+var q3ans = false;
+var q4ans = false;
+
+
 var timer;
 var timerCount;
 
@@ -58,10 +69,12 @@ function endGame() {
 
 function questionOne() {
   mainEl.textContent = "Question 1: ";
-  var a1 = document.createElement("li");
-  var a2 = document.createElement("li");
-  var a3 = document.createElement("li");
-  var a4 = document.createElement("li");
+  a1 = document.createElement("li");
+  a2 = document.createElement("li");
+  a3 = document.createElement("li");
+  a4 = document.createElement("li");
+
+  // var answered = false;
 
   a1.textContent = "a";
   a2.textContent = "b";
@@ -73,8 +86,36 @@ function questionOne() {
   answersEl.appendChild(a3);
   answersEl.appendChild(a4);
 
-  answersEl.addEventListener("click", function(event) {
+
+  function ans1Response(event) {
     if  (event.target === a1) {
+      mainEl.textContent = "Correct";
+      questionTwo();
+      answersEl.removeEventListener("click", ans1Response);
+
+    }
+    else {
+      mainEl.textContent = "incott";
+      timerCount -=5;
+      answersEl.removeEventListener("click", ans1Response);
+      questionTwo();
+    }
+  }
+
+
+  answersEl.addEventListener("click", ans1Response);
+}
+
+function questionTwo() {
+  mainEl.textContent = "Question 2: ";
+
+  a1.textContent = "e";
+  a2.textContent = "f";
+  a3.textContent = "g";
+  a4.textContent = "h";
+
+  answersEl.addEventListener("click", function(event) {
+    if  (event.target === a2) {
       mainEl.textContent = "Correct";
     }
     else {
@@ -82,10 +123,6 @@ function questionOne() {
       timerCount -=5;
     }
   })
-}
-
-function questionTwo() {
-  mainEl.textContent = "Question 2: ";
 }
 
 function questionThree() {
@@ -103,14 +140,14 @@ function startTimer() {
     timerEl.textContent = timerCount;
     if (timerCount >= 0) {
       // Tests if win condition is met
-      if (isWin && timerCount > 0) {
-        // Clears interval and stops timer
-        clearInterval(timer);
-        endGame();
-      }
+      // if (isWin && timerCount > 0) {
+      //   // Clears interval and stops timer
+      //   clearInterval(timer);
+      //   endGame();
+      // }
     }
     // Tests if time has run out
-    if (timerCount === 0) {
+    if (timerCount <= 0) {
       // Clears interval
       clearInterval(timer);
       endGame();

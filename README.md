@@ -2,6 +2,8 @@
 
 ## Description
 
+This project aimed to create a Javascript coding quiz using web api.
+
 This project aimed to create a secure password generator using JavaScript. The project prompted the user to provide specific characteristics of the password, including length and types of characters. The page would then display the password to the user. 
 
 
@@ -23,4 +25,4 @@ When the generate password button is pressed the page should display the passwor
 
 ## Credits
 
-The JS for the password generator was created by Michael Berry.
+The JS and html for the code quiz was created by Michael Berry. The CSS was partially taken and modified from the CSS provided for the previous password generator project.
